@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="FR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"dah
+    />
+    <script src="/static/js/script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="sidebar">
+      <div class="username">
+        <span id="cliqueUser">{{ .Username.Name }} </span>
+      </div>
+      <ul>
+        <li><a href="#section1">Gestion Data</a></li>
+        <li><a href="#section2">Gestion Dossier</a></li>
+        <li><a href="#section3">Suivie Prospect</a></li>
+        <li><a href="#section4">Gestion Incident</a></li>
+        <li><a href="#section5">Administration</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="classA">
+        <div class="forms1" id="formulaireU">
+          <div class="LIGN1">
+            <button id="closeBtnU"><i class="bx bxs-x-circle"></i></button>
+          </div>
+          <div class="button1">
+            <form action="/logout" method="post">
+              <button>Deconnexion</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <section id="section1" class="active">
+        <h2>Gestion DATA</h2>
+        <hr />
+        <div class="CONTENUE">
+          <div class="FORMULAIRE">
+            <form class="frmdata" action="/data/add-data-customer" method="post">
+
+            <div class="first_line">
+              <input
+                type="text"
+                id="numero_sim"
+                name="customer-number"
+                placeholder="Numéro SIM"
+                required="numero"
+              />
+
+              <select name="data" id="volume">
+                {{ range .Volumes }} 
+                <option value="{{ .Id }}">{{ .Volume }}</option>
+                {{ end }}
+              </select>
+
+              <input
+                type="text"
+                id="nomdusite"
+                name="site-name"
+                placeholder="Nom du site"
+                required="numero"
+              />
+            </div>
+
+            <div class="second_line">
+              <div class="carre1">
+
+                <select id="nomclient" name="customer-name">
+                  {{ range .Customers }}
+                  <option value="{{ .Id }}"> {{ .Name }}</option>
+                  {{ end }}
+                </select>
+              </div>
+              <button type="submit">Enregistrer</button>
+              <div class="carre2">
+                <input
+                  type="date"
+                  id="date_recharge"
+                  name="date-re"
+                  required=""
+                />
+              </div>
+            </form>
+            </div>
+            
+          </div>
+          <div class="espacefiltres">
+            <button id="filtresBtn">filtres</button>
+
+            <div class="autres" id="autres">
+              <button>Ordonné</button>
+              <button>E2C</button>
+              <button>MUCODEC</button>
+              <button>Arc</button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table id="myTable">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Site</th>
+                  <th>Numéro SIM</th>
+                  <th>Client</th>
+                  <th>Volume (Go)</th>
+                  <th>Date de Recharge</th>
+                  <th>Date d'Expiration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez vos données ici -->
+                {{ range .CustomersDetails }}
+                <tr>
+                  <td>{{ .Customer_id}}</td>
+                  <td>{{ .Site_name}}</td>
+                  <td>{{ .Number_name}}</td>
+                  <td>{{ .Customer_name}}</td>
+                  <td>{{ .Volume}}</td>
+                  <td>{{ .Date_re}}</td>
+                  <td>{{ .Date_exp}}</td>
+                  <td hidden>{{ .Customer_id}}</td>
+                  <td hidden>{{ .Site_id}}</td>
+                  <td hidden>{{ .Number_id}}</td>
+                  <td hidden>{{ .Recharge_id}}</td>
+                </tr>
+                {{ end }}
+                <!-- Ajoutez autant de lignes que nécessaire -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="form-container">
+            <div class="fidst">
+              <button class="Btnfermer">Fermer</button>
+            </div>
+            <h2>Modifier les informations</h2>
+            <form id="myForm" action="data/update-data-customer" method="post">
+              <label for="site">Site:</label><br />
+              <input type="text"  name="site-name" class="disabled site" /><br />
+              <label for="age">Numero:</label><br />
+              <input type="text" name="customer-number" class="disabled numero" /><br />
+              <label for="email">Client:</label><br />
+              <input type="text" name="customer-name" class="disabled client" /><br /><br />
+              <label for="text">Volume:</label><br /> <input type="text" name="volume" class="disabled volumes" /><br /><br />
+              <label for="text">Recharge:</label><br />
+              <input type="date" name="date-re" class="disabled recharge" /><br /><br />
+              <label for="email">Expiration:</label><br />
+              <input type="date" name="date-exp" class="disabled expiration" /><br /><br />
+
+              <input type="text" hidden class="disabled customer-id" name="customer-id" />
+              <input type="text" hidden class="disabled site-id" name="site-id" />
+              <input type="text" hidden class="disabled recharge-id" name="recharge-id" />
+              <input type="text" hidden class="disabled number-id" name="number-id" />
+            
+
+              <div class="BOUTTONS">
+                <button type="submit">Enregistrer</button>
+                <button id="modifyButton">Modifier</button>
+            </form>
+                <form action="/data/delete-data-customer" method="post">
+                  <input type="text" hidden class="disabled delete-customer-id" name="customer-id" />
+                  <input type="text" hidden class="disabled delete-site-id" name="site-id" />
+                  <input type="text" hidden class="disabled delete-recharge-id" name="recharge-id" />
+                  <input type="text" hidden class="disabled delete-number-id" name="number-id" />
+            
+                  <button type="submit">Supprimer</button>
+                </form>
+              </div>
+          </div>
+
+          <form action="/print" method="post">
+            <div class="excel-btn-container">
+              <button type="submit" class="excel-btn">IMPRIMER</button>
+            </div>
+          </form>
+
+
+        </div>
+      </section>
+      <section id="section2">
+        <h2>Gestion Dossiers</h2>
+        <hr />
+        <div class="CONTENUE">
+          <div class="ROWX1">
+            <button id="newdossier">Nouveau dossier</button>
+            <div class="ajout" id="ajoutclient">
+              <div class="formulaireX">
+                <div class="LIGNE1">
+                  <button id="closeBtn"><i class="bx bxs-x-circle"></i></button>
+                </div>
+                <div class="ligne2">
+                  <h2>Nouveau dossier</h2>
+                  <hr />
+
+                  <div id="step1">
+                    <div class="formulation">
+                      <div class="imageview">
+                        <img
+                          id="preview"
+                          src="#"
+                          alt="Image preview"
+                          style="
+                            display: none;
+                            max-width: 200px;
+                            max-height: 200px;
+                            object-fit: cover;
+                          "
+                        /><br /><br />
+                        <input
+                          type="file"
+                          id="image"
+                          accept="image/*"
+                          onchange="previewImage(event)"
+                        /><br /><br />
+                      </div>
+
+                      <div class="lesChamps">
+                        <form action="/data/add-project" method="post">
+                        <label for="customers">Nom du Projet</label>
+                        <input type="text" id="project-name" name="project-name" placeholder="Nom du Projet" />
+                        <label for="customers">Nom du Prospect</label>
+                        <select id="Statut_concerne" name="customer-id">
+                          {{ range .Customers }}
+                            <option value="{{ .Id }}"> {{ .Name }}</option>
+                          {{ end }}
+                        </select>
+                        <label for="commercial">Nom de l'agent commercial</label>
+                        <select id="Statut_concerne" name="commercial-id">
+                          {{ range .Commercials}}
+                          <option value="{{ .Id }}"> {{ .Name }}</option>
+                          {{ end }}
+                        </select>
+                        <button onclick="nextStep()">Suivant</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="step2" style="display: none">
+                  <h2>2</h2>
+
+                  <div class="forms">
+                    <select id="service" name="service-id">
+                      {{ range .Services }}
+                          <option value="{{ .Id }}" selected>{{ .Name }}</option>
+                      {{ end }}
+                    </select><br /><br />
+                    <textarea name="project-description" id="description" placeholder="Description du Projet"></textarea>
+
+                  </div>
+
+                  <div class="bou">
+                    <button onclick="prevStep()">Précédent</button>
+                    <button onclick="nextStep()">Suivant</button>
+                  </div>
+                </div>
+
+                <div id="step3" style="display: none">
+                  <h2>3</h2>
+
+                  <div class="forms">
+                    <select id="statut_actuel" name="statut_actuel">
+                      <option value="rdv1_a_fixer">RDV1 à fixer</option>
+                      <option value="rdv1_pris">RDV1 Pris</option>
+                      <option value="devis_remis_negociation">
+                        Devis Remis-Négo
+                      </option>
+                      <option value="signe_a_valider">Signé-A valider</option>
+                      <option value="signe_valide">Signé-Validé</option>
+                      <option value="signe_annule">Signé-Annulé</option>
+                      <option value="sans_suite_abandonne">
+                        Sans suite-Abandonné
+                      </option>
+                      <option value="perdu">Perdu</option>
+                      <option value="en_attente">En attente</option>
+                    </select>
+                    <input type="date" id="date_contact" name="date_contact" required />
+                  </div>
+
+                  <div class="bou">
+                    <button onclick="prevStep()">Précédent</button>
+                    <button type="submit">Enregistrer</button>
+                  </div>
+                </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="espacefiltres">
+            <button id="filtresBtnd">filtres</button>
+            <div class="autres" id="autres1">
+              <button>En cours</button>
+              <button>Clients</button>
+              <button>Prospect</button>
+              <button>ordonné</button>
+            </div>
+
+            <!-- Ajout de la div pour le formulaire de modification -->
+          <div id="modificationForm" class="hidden">
+            <div class="CLOSEFORM">
+              <button id="closeBtnMD">
+                <i class="bx bxs-x-circle"></i>
+              </button>
+            </div>
+              <h2>Modifier le dossier</h2>
+
+              <form action="data/update-project" method="post">
+                <label for="nomsociete">Nom société:</label>
+                <select name="customer-name" id="">
+                  {{range .Customers }}
+                    <option value="{{ .Id }}">{{ .Name }}</option>
+                  {{ end }}
+                </select>
+                <label for="project-name-dash">Projet:</label>
+                <input type="text" id="project-name-dash" name="project-name"/>
+                <label for="nomcommercial">Commercial:</label>
+                <select name="commercial-id" id="">
+                  {{range .Commercials }}
+                  <option value="{{ .Id }}">{{ .Name }}</option>
+                  {{ end }}
+                </select>
+                <label for="secteur">Secteur d'activité:</label>
+                <input type="text" id="inputSecteur" name="branch"/>
+
+
+                <label for="contact">Contact:</label>
+                <input type="text" id="inputContact" name="customer-contact" />
+
+                <select name="service-id" id="">
+                  {{range .Services }}
+                  <option value="{{.Id}}">{{ .Name }}</option>
+                  {{ end }}
+                </select>
+
+                <label for="project-description">Description:</label>
+                <input type="text" id="project-description" name="project-description" />
+
+                <div class="BOU">
+                  <input type="text" id="project-id-update" name="project-id" hidden/>
+                  <button id="enregistrer" type="submit">Enregistrer</button>
+              </form>
+              <button id="modifier">Modifier</button>
+              <form action="/data/delete-project" method="post">
+                <input type="text" id="project-id-hidden" name="project-id" hidden/>
+                <button id="supprimer" type="submit">Supprimer</button>
+              </form>
+            </div>
+          </div>
+          </div>
+
+          <div class="divdossier">
+            <div class="screenDOSSIER">
+              <div class="listedossier">
+                <!-- Les 9 divs à l'intérieur de l'écran -->
+                {{ range .Projects }}
+                <div class="boxx" id="dossierx">
+                  <div class="lign1">
+                    <div class="carre"><img src="{{ .Customer_logo }}" alt="customer-logo"></div>
+                    <div class="contenueDossier">
+                      <div class="row1">
+                        <label for="customer-name">Client:</label>
+                        <label for="project-name">Projet:</label>
+                        <label for="commercial-name">commercial:</label>
+                      </div>
+
+                      <div class="row1">
+                        <span id="customer-name">{{.Customer_name}} </span>
+                        <span id="project-name-dash">{{.Project_name}} </span>
+                        <span id="project-id" hidden>{{.Project_id}} </span>
+                        <span id="commercial-name">{{.Commercial_name}}</span>
+                      </div>
+
+                      <div class="row1">
+                        <label for="secteur">Secteur d'activite:</label>
+                        <label for="contact">contact:</label>
+                        <label for="description">Description:</label>
+                      </div>
+
+                      <div class="row1">
+                        <span id="secteur">{{ .Customer_branch }}</span>
+                        <span id="contact"> {{ .Customer_contact }} </span>
+                        <span id="description"> {{ .Description }} </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="section3">
+        <h2>Suivie Prospects</h2>
+
+          <form action="/data/add-prospect" method="post">
+
+            <div class="incidform">
+              <div class="row1inc">
+                <fieldset>
+                  <legend>Informations du Prospect</legend>
+
+                  <label for="prospect-name">Prospect:</label><br>
+                  <input type="text" name="prospect-name" id=""><br>
+
+                  <label for="prospect-address">Adresse:</label><br>
+                  <input type="text" name="prospect-address"><br>
+
+                  <label for="prospect-contact">Contact:</label><br>
+                  <input type="text" name="prospect-contact">
+
+                </fieldset>
+                
+                <fieldset>
+                  <legend>Information du Referant</legend>
+                  
+                <label for="referant-name">Referant:</label><br>
+                <input type="text" name="referant-name"><br>
+
+                <label for="referant-contact">Contact Referant:</label><br>
+                <input type="text" name="referant-contact">
+
+                </fieldset>
+
+                <fieldset>
+                  <legend>Courier</legend>
+                  <label for="mail-object">Object :</label><br>
+                  <input type="text" name="mail-object"><br
+
+                  <label for="ddp">DDC:</label><br>
+                  <input type="date" name="ddp"><br>
+
+                </fieldset>
+
+                
+              </div>
+            </div>
+
+                <button type="submit">Enregistrer</button>
+          </form>
+
+          <div class="incidTABLE">
+          <div class="table-container">
+            <table id="prospect-table">
+              <thead>
+                <tr>
+                  <th>Nom Prospect</th>
+                  <th>Adresse</th>
+                  <th>Conctact</th>
+                  <th>Referant</th>
+                  <th>Contact Referant</th>
+                  <th>Objet Courrier</th>
+                  <th>DDC</th>
+                  <th>DRC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez vos données ici -->
+                {{ range .Prospect }}
+                <tr>
+                  <td>{{ .Name}}</td>
+                  <td>{{ .Address}}</td>
+                  <td>{{ .Contact}}</td>
+                  <td>{{ .Referant}}</td>
+                  <td>{{ .Referant_contact}} </td>
+                  <td>{{ .Mail_object}}</td>
+                  <td>{{ .Ddp}}</td>
+                  <td>{{ .Ddc}}</td>
+                  <td hidden>{{ .Id}}</td>
+                </tr>
+                {{ end }}
+                <!-- Ajoutez autant de lignes que nécessaire -->
+              </tbody>
+            </table>
+          </div>
+
+
+        <div class="prospect-form-container">
+            <div class="fidst">
+              <button class="prospect-close-btn">Fermer</button>
+            </div>
+          <form id="prospect-form" action="/data/update-prospect" method="post">
+
+            <label for="prospect-name">Prospect</label><br />
+            <input type="text"  name="prospect-name" class=" prospect-name" /><br />
+
+            <label for="prospect-address">Adresse</label><br />
+            <input type="text"  name="prospect-address" class=" prospect-address" /><br />
+
+            <label for="prospect-contact">Contact</label><br />
+            <input type="text"  name="prospect-contact" class=" prospect-contact" /><br />
+
+            <label for="referant-name">Referant</label><br />
+            <input type="text"  name="referant-name" class="referant" /><br />
+
+            <label for="referant-contact">Contact Referant</label><br />
+            <input type="text"  name="referant-contact" class=" referant-contact" /><br />
+
+            <label for="mail-object">Objet</label><br />
+            <input type="text"  name="mail-object" class=" mail-object" /><br />
+
+            <label for="ddp">DDC</label><br />
+            <input type="text"  name="ddp" class=" ddp" /><br />
+
+            <label for="ddc">Ddc</label><br />
+            <input type="text"  name="ddc" class=" ddc" /><br />
+
+            <input type="text" class="prospect-id" hidden name="prospect-id" />
+
+
+            <div class="BOUTTONS">
+              <button type="submit">Enregistrer</button>
+          </form>
+          <form action="/data/delete-prospect" method="post">
+            <input type="text" hidden class=" delete-prospect-id" name="prospect-id" />
+            <button type="submit">Supprimer</button>
+          </form>
+            </div>
+        </div>
+
+            
+
+      </section>
+      <section id="section4">
+        <h2>Gestion Incidents</h2>
+        <hr />
+        <div class="incidContenue">
+
+          <form action="/data/add-incident" method="post">
+
+            <div class="incidForm">
+              <div class="row1inc">
+                <label for="date">Date</label>
+                <input type="date" name="date"/>
+                <label for="customer-name">Client</label>
+                <select name="customer-name" id="">
+                  {{range .Customers }}
+                    <option value="{{ .Id }}">{{ .Name }}</option>
+                  {{ end }}
+                </select>
+
+                <label for="site-name">Site</label>
+                <select name="site-name" id="">
+                  {{range .Sites }}
+                    <option value="{{ .Id }}">{{ .Name }}</option>
+                  {{ end }}
+                </select>
+              </div>
+
+              <div class="row2inc">
+                <button type="submit">Enregistrer</button>
+
+                <label for="description">Description</label>
+                <textarea name="description" id="" cols="30" rows="3"> </textarea>
+
+                <fieldset>
+                  <legend>Responsabilité</legend>
+
+                  <label for="responsability">LinkSystem</label>
+                  <input type="radio" name="responsability" id="responsability" value="linksystem"><br>
+
+                  <label for="responsability">Client</label>
+                  <input type="radio" name="responsability" id="responsability" value="customer"><br>
+                </fieldset>
+
+                <label for="agent">Intervenant</label>
+                <select name="agent-name" id="">
+                  {{range .Commercials }}
+                  <option value="{{ .Id }}">{{ .Name }}</option>
+                  {{ end }}
+                </select>
+                
+              </div>
+            </div>
+
+          </form>
+
+        <div class="incident-form-container">
+            <div class="fidst">
+              <button class="incident-close-btn">Fermer</button>
+            </div>
+          <form id="incident-form" action="/data/update-incident" method="post">
+
+            <label for="incident-description">Description</label><br />
+            <input type="text"  name="incident-description" class=" incident-description" /><br />
+
+            <label for="incident-origin">Origin</label><br />
+            <input type="text"  name="incident-origin" class=" incident-origin" /><br />
+
+            <label for="incident-site">Site</label><br />
+            <input type="text"  name="incident-site" class=" incident-site" /><br />
+
+            <label for="incident-responsability">Responsabilite</label><br />
+            <input type="text"  name="incident-responsability" class=" incident-responsability" /><br />
+
+            <label for="incident-intervenant">Intervenant</label><br />
+            <input type="text"  name="incident-intervenant" class=" incident-intervenant" /><br />
+
+            <label for="incident-date">Date</label><br />
+            <input type="text"  name="incident-date" class=" incident-date" /><br />
+
+            <input type="text" class="incident-id" hidden name="incident-id" />
+
+
+            <div class="BOUTTONS">
+              <button type="submit">Enregistrer</button>
+          </form>
+          <form action="/data/delete-incident" method="post">
+            <input type="text" hidden class=" delete-incident-id" name="incident-id" />
+            <button type="submit">Supprimer</button>
+          </form>
+            </div>
+        </div>
+
+          <div class="incidTABLE">
+          <div class="table-container">
+            <table id="incident-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Origin</th>
+                  <th>Site</th>
+                  <th>Responsabilite</th>
+                  <th>Intervenant</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez vos données ici -->
+                {{ range .Incidents }}
+                <tr>
+                  <td>{{ .Description}}</td>
+                  <td>{{ .Origin}}</td>
+                  <td>{{ .Site}}</td>
+                  <td>{{ .Responsability}}</td>
+                  <td>{{ .Name }}</td>
+                  <td>{{ .Date}}</td>
+                  <td hidden>{{ .Id}}</td>
+                </tr>
+                {{ end }}
+                <!-- Ajoutez autant de lignes que nécessaire -->
+              </tbody>
+            </table>
+
+
+
+          </div>
+            
+          </div>
+        </div>
+      </section>
+
+    <section id="section5">
+      <h2>Gestion des Agent Commerciaux</h2>
+      <hr />
+
+      <div class="espacegestion">
+        <div class="tableauadmin">
+
+          <div class="table-container1">
+            <table id="commercial-table">
+              <thead>
+                <tr>
+                  <th>Nom de l'agent</th>
+                  <th>Fonction</th>
+                  <th>Adresse</th>
+                  <th hidden>Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez autant de lignes que nécessaire -->
+                {{ range .Commercials }}
+                  <tr>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Role }}</td>
+                    <td>{{ .Address }}</td>
+                    <td hidden>{{ .Id }}</td>
+                  </tr>
+                {{ end }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="commercial-form-container">
+            <div class="fidst">
+              <button class="commercial-close-btn">Fermer</button>
+            </div>
+          <form id="commercial-form" action="/data/update-commercial" method="post">
+            <label for="commercial-name">Nom de l'agent commercial:</label><br />
+            <input type="text"  name="commercial-name" class=" commercial-name" /><br /><br>
+
+            <label for="commercial-role">Fonction:</label><br />
+            <input type="text" name="commercial-role" class=" commercial-role" /><br /><br />
+
+            <label for="commercial-address">Adresse:</label><br />
+            <input type="text" name="commercial-address" class=" commercial-address" /><br /><br />
+
+            <input type="text" class=" commercial-id" hidden name="commercial-id" />
+
+
+            <div class="BOUTTONS">
+              <button type="submit">Enregistrer</button>
+          </form>
+          <form action="/data/delete-commercial" method="post">
+            <input type="text" hidden class=" delete-commercial-id" name="commercial-id" />
+            <button type="submit">Supprimer</button>
+          </form>
+            </div>
+        </div>
+
+        <div class="ajoutagent">
+          <h2>Ajouter un agent commercial</h2>
+          <hr />
+          <div class="for">
+            <form action="/data/add-commercial" method="post">
+              <input type="text" required name="name" id="nomagents" placeholder="nom de l'agent" />
+              <input type="text" required name="address" id="nomutilisateur" placeholder="Adresse" />
+              <input type="text" required name="role" id="nomutilisateur" placeholder="Fonction" />
+
+              <button type="submit">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <h2>Gestion Clients</h2>
+      <hr />
+
+      <div class="espacegestion">
+        <div class="tableauadmin">
+          <div class="table-container1">
+            <table id="customer-table">
+              <thead>
+                <tr>
+                  <th>Nom du client</th>
+                  <th>Adresse</th>
+                  <th>contact</th>
+                  <th>seceur d'activité</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez vos données ici -->
+                {{ range .Customers }}
+                  <tr>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Address }}</td>
+                    <td>{{ .Contact }}</td>
+                    <td>{{ .Branch }}</td>
+                    <td hidden>{{ .Id }}</td>
+                  </tr>
+                {{end }}
+                <!-- Ajoutez autant de lignes que nécessaire -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="customer-form-container">
+            <div class="fidst">
+              <button class="customer-close-btn">Fermer</button>
+            </div>
+          <form id="customer-form" action="/data/update-customer" method="post">
+            <label for="customer-name">Nom du Client:</label><br />
+            <input type="text"  name="customer-name" class=" customer-name" /><br />
+
+            <label for="customer-address">Adresse:</label><br />
+            <input type="text"  address="customer-address" class=" customer-address" /><br />
+
+
+            <label for="customer-contact">Contact:</label><br />
+            <input type="text" name="customer-contact" class=" customer-contact" /><br /><br />
+
+            <label for="customer-branch">Secteur d'activité:</label><br />
+            <input type="text" name="customer-branch" class=" customer-branch" /><br /><br />
+
+            <input type="text" hidden class="customer-id" name="customer-id" />
+
+            <div class="BOUTTONS">
+              <button type="submit">Enregistrer</button>
+          </form>
+          <form action="/data/delete-customer" method="post">
+            <input type="text" hidden class=" delete-customer-id" name="customer-id" />
+            <button type="submit">Supprimer</button>
+          </form>
+            </div>
+        </div>
+
+        <div class="ajoutagent">
+          <h2>Ajouter un client</h2>
+          <hr />
+          <div class="for">
+            <form action="/data/add-customer" method="post">
+              <input type="text" required name="customer-name" id="nomclients" placeholder="nom du client" />
+              <input type="file" required name="customer-logo" id="customer-logo" />
+              <input type="address" required name="customer-address" id="adresse" placeholder="Adresse" />
+              <input type="contact" required name="customer-contact" id="contact" placeholder="contact" />
+              <input type="text" required name="customer-branch" id="role" placeholder="secteur d'activité" /><br>
+              <select name="commercial-id">
+                {{range .Commercials }}
+                <option value="{{ .Id }}">{{ .Name}}</option>
+                {{end}}
+              </select>
+
+              <button type="submit">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <h2>Gestion Utilisateurs</h2>
+      <hr />
+
+      <div class="espacegestion">
+        <div class="tableauadmin">
+          <div class="table-container1">
+            <table id="user-table">
+              <thead>
+                <tr>
+                  <th>Nom de l'utilisateur</th>
+                  <th>Mot de passe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez vos données ici -->
+                {{ range .Users }}
+                  <tr>
+                    <td>{{ .Email }}</td>
+                    <td>{{ .Password }}</td>
+                    <td hidden>{{ .Id }}</td>
+                  </tr>
+                {{ end }}
+                <!-- Ajoutez autant de lignes que nécessaire -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="user-form-container">
+            <div class="fidst">
+              <button class="user-close-btn">Fermer</button>
+            </div>
+          <form id="user-form" action="/data/update-user" method="post">
+            <label for="user-name">Nom de l'utilisateur:</label><br />
+            <input type="text"  name="user-name" class="user-name" /><br />
+
+            <label for="user-password">Mot de passe:</label><br />
+            <input type="text" name="user-password" class="user-password" /><br /><br />
+
+            <input type="text" hidden class=" user-id" name="user-id" />
+
+
+            <div class="BOUTTONS">
+              <button type="submit">Enregistrer</button>
+          </form>
+          <form action="/data/delete-user" method="post">
+            <input type="text" hidden class=" delete-user-id" name="user-id" />
+            <button type="submit">Supprimer</button>
+          </form>
+            </div>
+        </div>
+
+
+        <div class="ajoutagent">
+          <h2>Ajouter un utilisateur</h2>
+          <hr />
+          <div class="for">
+            <form action="/data/add-user" method="post">
+              <input type="text" required name="user-email" id="user-email" placeholder="example@gmai.com" />
+              <input type="password" required name="user-password" id="user-password" placeholder="Mot de passe" />
+              <select name="commercial-id">
+                {{range .Commercials }}
+                <option value="{{ .Id }}">{{ .Name }}</option>
+                {{end}}
+              </select>
+
+              <button type="submit">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <h2>Gestion des Services</h2>
+      <hr />
+
+      <div class="espacegestion">
+        <div class="tableauadmin">
+          <div class="table-container1">
+            <table id="service-table">
+              <thead>
+                <tr>
+                  <th>Nom du service</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ajoutez vos données ici -->
+                {{ range .Services }}
+                  <tr>
+                    <td>{{ .Name }}</td>
+                    <td hidden>{{ .Id }}</td>
+                  </tr>
+                {{ end }}
+                <!-- Ajoutez autant de lignes que nécessaire -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="service-form-container">
+            <div class="fidst">
+              <button class="service-close-btn">Fermer</button>
+            </div>
+          <form id="service-form" action="/data/update-service" method="post">
+            <label for="service-name">Ajout Service:</label><br />
+            <input type="text"  name="service-name" class=" service-name" /><br />
+
+            <input type="text" hidden class=" service-id" name="service-id" />
+
+
+            <div class="BOUTTONS">
+              <button type="submit">Enregistrer</button>
+          </form>
+          <form action="/data/delete-service" method="post">
+            <input type="text" hidden class=" delete-service-id" name="service-id" />
+            <button type="submit">Supprimer</button>
+          </form>
+            </div>
+        </div>
+
+
+        <div class="ajoutagent">
+          <h2>Ajouter un Service</h2>
+          <hr />
+          <div class="for">
+            <form action="/data/add-service" method="post">
+              <input type="text" name="service-name" required placeholder="interconnexion" />
+
+              <button type="submit">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+      <section id="section6"></section>
+    </div>
+  </body>
+</html>

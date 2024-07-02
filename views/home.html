@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>First Page with GO</title>
+    <link href="static/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    {{range . }}
+     <ul>
+      <li>{{ .Name }}</li>
+      {{if .Name }}
+        <ul>
+          <li>{{ .Name }}</li>
+        </ul>
+      {{else}}
+        <ol>
+          <li>{{ .Name }}</li>
+        </ol>
+      {{end}}
+     </ul>
+    {{end }}
+  </body>
+</html>

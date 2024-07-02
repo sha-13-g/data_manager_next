@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interface de Connexion</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+    <div class="background-image"></div>
+    
+    <div class="bg">
+        <ul class="glass">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+        <div class="image-cadran">  
+            <img src="/static/img/logo.jpg" alt="Image">
+        </div>
+        
+        <div class="glass-container">
+            <div class="glass-form">
+                <h2>Connectez-vous</h2>
+                <div class="user-cadran">  
+                    <img src="/static/img/rondLS.png" alt="Image">
+                </div>
+
+                <form id="login-form" action="/login" method="post">
+                    <div class="input-container">
+                        <input type="text" id="username" name="username" required="">
+                        <label for="username" class="label">Nom d'utilisateur</label>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="password" id="password" name="password" required="">
+                        <label for="password" class="label">Mot de passe</label>
+                        <div class="underline"></div>
+                    </div>
+                    
+                    <button id="login-button">Connexion</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"> 
+    </script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.2
+-- Dumped by pg_dump version 16.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'WIN1252';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: customer; Type: TABLE; Schema: public; Owner: gbl
+--
+
+CREATE TABLE public.customer (
+    id character varying(100) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.customer OWNER TO gbl;
+
+--
+-- Name: customer_id_seq; Type: SEQUENCE; Schema: public; Owner: gbl
+--
+
+CREATE SEQUENCE public.customer_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.customer_id_seq OWNER TO gbl;
+
+--
+-- Name: customer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gbl
+--
+
+ALTER SEQUENCE public.customer_id_seq OWNED BY public.customer.id;
+
+
+--
+-- Name: number; Type: TABLE; Schema: public; Owner: gbl
+--
+
+CREATE TABLE public.number (
+    id character varying(100) NOT NULL,
+    number text,
+    site_id character varying(100)
+);
+
+
+ALTER TABLE public.number OWNER TO gbl;
+
+--
+-- Name: number_id_seq; Type: SEQUENCE; Schema: public; Owner: gbl
+--
+
+CREATE SEQUENCE public.number_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.number_id_seq OWNER TO gbl;
+
+--
+-- Name: number_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gbl
+--
+
+ALTER SEQUENCE public.number_id_seq OWNED BY public.number.id;
+
+
+--
+-- Name: recharge; Type: TABLE; Schema: public; Owner: gbl
+--
+
+CREATE TABLE public.recharge (
+    id character varying(100) NOT NULL,
+    volume integer,
+    date_re date,
+    date_exp date,
+    auto_re boolean,
+    number_id character varying(100)
+);
+
+
+ALTER TABLE public.recharge OWNER TO gbl;
+
+--
+-- Name: recharge_id_seq; Type: SEQUENCE; Schema: public; Owner: gbl
+--
+
+CREATE SEQUENCE public.recharge_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.recharge_id_seq OWNER TO gbl;
+
+--
+-- Name: recharge_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gbl
+--
+
+ALTER SEQUENCE public.recharge_id_seq OWNED BY public.recharge.id;
+
+
+--
+-- Name: site; Type: TABLE; Schema: public; Owner: gbl
+--
+
+CREATE TABLE public.site (
+    id character varying(100) NOT NULL,
+    name character varying(100),
+    customer_id character varying(100)
+);
+
+
+ALTER TABLE public.site OWNER TO gbl;
+
+--
+-- Name: site_id_seq; Type: SEQUENCE; Schema: public; Owner: gbl
+--
+
+CREATE SEQUENCE public.site_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.site_id_seq OWNER TO gbl;
+
+--
+-- Name: site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gbl
+--
+
+ALTER SEQUENCE public.site_id_seq OWNED BY public.site.id;
+
+
+--
+-- Name: customer id; Type: DEFAULT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.customer ALTER COLUMN id SET DEFAULT nextval('public.customer_id_seq'::regclass);
+
+
+--
+-- Name: number id; Type: DEFAULT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.number ALTER COLUMN id SET DEFAULT nextval('public.number_id_seq'::regclass);
+
+
+--
+-- Name: recharge id; Type: DEFAULT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.recharge ALTER COLUMN id SET DEFAULT nextval('public.recharge_id_seq'::regclass);
+
+
+--
+-- Name: site id; Type: DEFAULT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.site ALTER COLUMN id SET DEFAULT nextval('public.site_id_seq'::regclass);
+
+
+--
+-- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: gbl
+--
+
+COPY public.customer (id, name) FROM stdin;
+1712717775	mucodec
+1712718730	ecobank
+1712931953	ganfina
+1712932029	ganfina
+1712932162	ganfina
+1712932518	ganfina
+1712933128	bb
+1712938725	mucodec
+1712932621	koumou
+1712932728	koumou
+1712932797	koumoua
+1712932895	mucodec
+1712932992	bc
+1713183032	E2c
+1712933839	koumou
+1712933908	koumou
+1	brice
+2	loic
+3	gan
+1713176386	Brice-Louc
+1712938046	mucLL
+1713183298	E2c
+\.
+
+
+--
+-- Data for Name: number; Type: TABLE DATA; Schema: public; Owner: gbl
+--
+
+COPY public.number (id, number, site_id) FROM stdin;
+1712717776	068554954	1712717775
+1712718731	054474955	1712718731
+1712931954	066513423	1712931954
+1712932030	066513423	1712932030
+1712932163	066513423	1712932162
+1712932519	066513423	1712932518
+1712933131	065058394	1712933130
+1712938726	065578245	1712938726
+1712932623	067033626	1712932623
+1712932729	067033626	1712932729
+1712932798	067033627	1712932797
+1712932896	065578247	1712932895
+1712932993	065058394	1712932992
+1713183032	066663216	1713183032
+1712933841	067033626	1712933840
+1712933912	067033626	1712933910
+1713176386	055555555	1713176386
+1712938047	066513423	1712938046
+1713183298	057965545	1713183298
+\.
+
+
+--
+-- Data for Name: recharge; Type: TABLE DATA; Schema: public; Owner: gbl
+--
+
+COPY public.recharge (id, volume, date_re, date_exp, auto_re, number_id) FROM stdin;
+1712938726	450	2024-04-27	2024-05-28	t	1712938726
+1712932623	140	2024-04-10	2024-05-11	f	1712932623
+1712932729	140	2024-04-10	2024-05-11	f	1712932729
+1712932798	140	2024-04-10	2024-05-11	f	1712932798
+1712932896	450	2024-04-27	2024-05-28	f	1712932896
+1712932993	400	2024-05-02	2024-06-03	f	1712932993
+1713183033	0	2024-04-15	2024-05-16	f	1713183032
+1712933842	140	2024-04-10	2024-05-11	t	1712933841
+1712933914	140	2024-04-10	2024-05-11	f	1712933912
+1713176387	110	2024-04-21	2024-05-22	f	1713176386
+1712938047	50	2024-04-12	2024-05-13	t	1712938047
+1713183299	870	2024-04-16	2024-05-17	f	1713183298
+\.
+
+
+--
+-- Data for Name: site; Type: TABLE DATA; Schema: public; Owner: gbl
+--
+
+COPY public.site (id, name, customer_id) FROM stdin;
+1712717775	bz	1712717775
+1712718731	pointe noire	1712718730
+1712931954	dolisie	1712931953
+1712932030	dolisie	1712932029
+1712932162	dolisie	1712932162
+1712932518	dolisie	1712932518
+1712933130	ff	1712933128
+1712938726	dolisie	1712938725
+1712932623	nkayi	1712932621
+1712932729	nkayi	1712932728
+1712932797	dolisie	1712932797
+1712932895	dolisie	1712932895
+1712932992	ff	1712932992
+1713183032	mpokola	1713183032
+1712933840	nkayi	1712933839
+1712933910	nkayi	1712933908
+1	dolisie	2
+2	nkayi	2
+3	ouesso	3
+1713176386	MM	1713176386
+1712938046	ouesso	1712938046
+1713183298	ngo	1713183298
+\.
+
+
+--
+-- Name: customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gbl
+--
+
+SELECT pg_catalog.setval('public.customer_id_seq', 3, true);
+
+
+--
+-- Name: number_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gbl
+--
+
+SELECT pg_catalog.setval('public.number_id_seq', 1, true);
+
+
+--
+-- Name: recharge_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gbl
+--
+
+SELECT pg_catalog.setval('public.recharge_id_seq', 1, false);
+
+
+--
+-- Name: site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gbl
+--
+
+SELECT pg_catalog.setval('public.site_id_seq', 3, true);
+
+
+--
+-- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.customer
+    ADD CONSTRAINT customer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: number number_pkey; Type: CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.number
+    ADD CONSTRAINT number_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recharge recharge_pkey; Type: CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.recharge
+    ADD CONSTRAINT recharge_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: site site_pkey; Type: CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.site
+    ADD CONSTRAINT site_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: number number_site_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.number
+    ADD CONSTRAINT number_site_id_fkey FOREIGN KEY (site_id) REFERENCES public.site(id);
+
+
+--
+-- Name: recharge recharge_number_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.recharge
+    ADD CONSTRAINT recharge_number_id_fkey FOREIGN KEY (number_id) REFERENCES public.number(id);
+
+
+--
+-- Name: site site_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gbl
+--
+
+ALTER TABLE ONLY public.site
+    ADD CONSTRAINT site_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES public.customer(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

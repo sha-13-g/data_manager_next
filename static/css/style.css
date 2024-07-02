@@ -1,0 +1,863 @@
+
+
+/** {
+  box-shadow: 0 0 0 3px red inset;
+}
+*/
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Désactive le scroll par défaut */
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+  background-color:  rgb(15, 33, 201);
+  height: 100%;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+.sidebar ul li a:hover {
+  background-color: #555;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 200px;
+  width: calc(100% - 200px);
+  height: 100%;
+  overflow-y: scroll; /* Activer le scroll uniquement pour cette partie */
+}
+
+section {
+  padding-left: 25px;
+  margin-bottom: 40px;
+  display: none;
+}
+
+section.active {
+  display: block;
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+.username {
+  width: 90%;
+  height: 50px;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.username span {
+  font-weight: bold;
+  font-size: 19px;
+  color: rgb(15, 33, 201);
+  cursor: pointer;
+}
+
+.classA {
+  position: relative;
+}
+
+.forms1 {
+  padding: 10px;
+  border-radius: 15px;
+  position: absolute;
+  width: 450px;
+  border: solid 2px #555;
+  z-index: 3;
+  background-color: #ffffff;
+  display: none;
+  flex-direction: column;
+}
+
+.contenux {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*background-color: #19b63b;*/
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.contenux input {
+  width: 250px;
+  margin-top: 15px;
+}
+
+.button1 {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+  /*  background-color: aqua;*/
+}
+
+.button1 button {
+  width: 100px;
+  height: 25px;
+  border-radius: 25px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.button1 button:hover {
+  transform: scale(1.1);
+}
+
+.LIGN1 {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: row;
+  justify-content: flex-end;
+  /* background-color: coral;*/
+}
+.LIGN1 button {
+  width: 30px;
+  background-color: rgba(255, 255, 255, 0);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  border: none;
+  cursor: pointer;
+  color: black;
+}
+
+.CONTENUE {
+  width: 100%;
+  height: 580px;
+  /* background-color: aqua;*/
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.FORMULAIRE {
+  padding: 15px;
+  width: 90%;
+  height: 100px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  /*background-color: red;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  border: solid 2px gray;
+}
+
+.frmdata{
+  width: 100%;
+  height: auto;
+}
+.first_line {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.first_line input {
+  width: 250px;
+}
+
+.second_line {
+  width: 92%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.second_line button {
+  width: 150px;
+  color: #fff;
+  background-color: rgb(0, 255, 0);
+  border-radius: 25px;
+}
+
+.second_line input {
+  width: 125px;
+}
+
+.espacefiltres {
+  width: 90%;
+  /* background-color: aquamarine;*/
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.espacefiltres button {
+  width: 100px;
+  border-radius: 25px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.espacefiltres button:hover {
+  transform: scale(1.1);
+}
+
+.autres {
+  width: 45%;
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/**********TABLEAU*/
+.table-container {
+  max-height: 300px; /* Définir la hauteur maximale du tableau avec défilement */
+  overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+  width: 90%;
+  border: solid 2px #555;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+}
+tr:hover {
+  background-color: #1984b6;
+  cursor: pointer;
+}
+
+#form-container, .prospect-form-container,.incident-form-container,.commercial-form-container, .customer-form-container, .user-form-container, .service-form-container{
+  display: none;
+}
+
+#form-container.show, .prospect-form-container.show, .incident-form-container.show, .commercial-form-container.show, .customer-form-container.show, .user-form-container.show, .service-form-container.show{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  width: 50%;
+  background-color: white;
+  border: solid 2px #555;
+  padding: 20px;
+  z-index: 15;
+}
+.disabled {
+  pointer-events: none;
+  background-color: #f4f4f4;
+  border: none;
+}
+.fidst {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.BOUTTONS {
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/***********espace dossier**********************************************/
+
+.ROWX1 {
+  position: relative;
+  width: 95%;
+  height: 20px;
+  /*background-color: green;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.ROWX1 button {
+  width: 150px;
+  height: 25px;
+  border-radius: 25px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.ROWX1 button:hover {
+  transform: scale(1.1);
+}
+
+.ajout {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 5;
+  display: none;
+  background-color: #00000000;
+  justify-content: center;
+}
+
+.formulaireX {
+  width: 500px;
+  height: 550px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  border: solid 2px #555;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.LIGNE1 {
+  width: 100%;
+  margin-top: 10P;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.LIGNE1 button {
+  width: 30px;
+  background-color: rgba(255, 255, 255, 0);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  border: none;
+  cursor: pointer;
+  color: black;
+}
+.ligne2 {
+  width: 100%;
+  height: 500px;
+  /* background-color: blueviolet;*/
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#step1 {
+  /*background-color: brown;*/
+  width: 100%;
+}
+
+.formulation {
+  width: 96%;
+  height: 90%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  /*background-color: #1c1eac;*/
+}
+
+.imageview {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  /* background-color: yellow;*/
+}
+
+.lesChamps {
+  width: 100%;
+  height: 300px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #1cac28;*/
+  border-radius: 25px;
+  border: solid 1px #2e2e2e48;
+}
+
+.lesChamps input {
+  width: 210px;
+  margin-bottom: 25px;
+}
+
+.forms {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #1cac28;*/
+  border-radius: 25px;
+  margin-bottom: 25px;
+  border: solid 2px #0000001f;
+}
+.forms input,
+select {
+  margin-bottom: 20px;
+}
+.lesChamps select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.bou {
+  width: 400px;
+  /*background-color: red;*/
+  display: flex;
+  justify-content: space-around;
+}
+
+.ROWX2 {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: green;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/******* gestion des dossiers *******/
+.divdossier {
+  width: 95%;
+  background-color: #1c1eac;
+}
+
+/* Style pour la div principale servant d'écran */
+.screenDOSSIER {
+  width: 100%; /* Largeur de l'écran */
+  height: 400px; /* Hauteur de l'écran */
+  overflow-y: scroll; /* Ajoute une barre de défilement vertical si nécessaire */
+  overflow-x: hidden; /* Cache la barre de défilement horizontale */
+  padding: 10px; /* Espace intérieur pour un meilleur aspect */
+  background-color: #ffffff; /* Couleur de fond */
+}
+
+/* Style pour chaque div à l'intérieur de l'écran */
+.boxx {
+  width: 97%; /* Largeur de chaque boîte égale à l'écran */
+  height: 100px; /* Hauteur de chaque boîte */
+  background-color: #ffffff; /* Couleur de fond */
+  border: 1px solid #ddd; /* Bordure pour chaque boîte */
+  margin-bottom: 10px; /* Marge inférieure pour séparer les boîtes */
+  padding: 10px; /* Espace intérieur pour le contenu */
+  border-radius: 15px; /* Coins arrondis */
+  margin-left: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: transform 0.2s ease-in-out; /* Animation de transformation au survol */
+  position: relative;
+}
+
+.boxx:hover {
+  transform: scale(1.04); /* Zoom au survol */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre légère au survol */
+}
+
+/* Style pour le texte à l'intérieur des boîtes */
+.boxx p {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Style pour les divs impaires pour les rendre légèrement différentes */
+.boxx:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+/******************************contenue du dossier***********/
+.lign1 {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*background-color: #1cac28;*/
+  align-items: center;
+}
+.carre {
+  width: 150px;
+  height: 90%;
+  background-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.carre img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.contenueDossier {
+  margin-left: 20px;
+  width: 100%;
+  height: 100%;
+  /*background-color: #aaaaaa;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.row1 {
+  display: flex;
+  flex-direction: column;
+}
+.contenueDossier span {
+  color: #1c1eac;
+  font-size: 18px;
+}
+.contenueDossier label {
+  font-size: 18px;
+}
+
+/*******MODIFICATION DES DOSSIERS***/
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 12;
+  width: 550px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 25px;
+  border: solid 2px #a8a8a8;
+}
+
+.BOU {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 25px;
+}
+
+.CLOSEFORM {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /*background-color: #1c1eac;*/
+  margin-bottom: 50px;
+}
+
+.CLOSEFORM button {
+  font-size: 25px;
+  align-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #cccccc00;
+  color: #000000;
+}
+/************************** css controle des incidents*******************/
+.incidContenue {
+  width: 98%;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #ac1ca5;*/
+}
+
+.incidForm {
+  width: 98%;
+  height: 150px;
+  border-radius: 15px;
+  border: solid 2px #555;
+  margin-bottom: 20px;
+  /* background-color: chocolate;*/
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row1inc {
+  width: 100%;
+  /*background-color: #19b63b;*/
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.row1inc input {
+  width: 250px;
+  height: 20px;
+}
+
+.row1inc select {
+  width: 250px;
+  height: 25px;
+}
+.row2inc {
+  width: 100%;
+  /*background-color: #ac1ca5;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.row2inc button {
+  width: 100px;
+}
+
+.incidTABLE {
+  width: 98%;
+}
+
+.btns {
+  width: 99%;
+  height: 25px;
+  background-color: #bdbdbd;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 15px;
+}
+
+.btns button {
+  width: 150px;
+  height: 25px;
+  margin-right: 20px;
+  border-radius: 25px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.btns button:hover {
+  transform: scale(1.1);
+}
+.divinc {
+  top: 0;
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.divinc button {
+  margin-right: 5px;
+}
+.row3inc {
+  position: relative;
+}
+
+.ficheintervention {
+  position: absolute;
+  z-index: 2;
+  width: 500px;
+
+  background-color: #ffffff;
+  display: none;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: solid 2px #555;
+}
+
+.ficheintervention input {
+  margin-bottom: 10px;
+}
+
+.ficheintervention button {
+  margin-top: 10px;
+}
+
+.table-container2 {
+  max-height: 300px; /* Définir la hauteur maximale du tableau avec défilement */
+  overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+  width: 100%;
+  border: solid 2px #555;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+}
+.table-container1 tr:hover {
+  background-color: #19b63b;
+  cursor: pointer;
+}
+/* Style CSS pour l'élément sélectionné */
+.selected {
+  background-color: #ccc;
+}
+
+/************************** css administration***************************/
+
+.espacebouton1 button {
+  width: 150px;
+  height: 25px;
+  border-radius: 25px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.espacebouton1 button:hover {
+  transform: scale(1.1);
+}
+
+.espacegestion {
+  width: 96%;
+  height: 500px;
+  /* background-color: #1c1eac;*/
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tableauadmin {
+  width: 60%;
+  height: 500px;
+  /*background-color: yellow;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.espacebouton1 {
+  width: 100%;
+  height: 50px;
+  background-color: #cccccc;
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 15px;
+}
+
+.ajoutagent {
+  width: 35%;
+  height: 350px;
+  /*  background-color: #1984b6;*/
+  border: solid 2px #555;
+  border-radius: 15px;
+  padding: 10px;
+}
+.ajoutagent h2 {
+  margin-left: 65px;
+}
+.for {
+  width: 95%;
+  height: 280px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #940707;*/
+}
+
+.for input {
+  width: 250px;
+  height: 25px;
+  margin-bottom: 15px;
+}
+
+/********* tableau agent**********/
+
+.table-container1 {
+  max-height: 400px; /* Définir la hauteur maximale du tableau avec défilement */
+  overflow-y: auto; /* Activer le défilement vertical lorsque le contenu dépasse la hauteur maximale */
+  width: 100%;
+  border: solid 2px #555;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+}
+.table-container1 tr:hover {
+  background-color: #19b63b;
+  cursor: pointer;
+}
+/* Style CSS pour l'élément sélectionné */
+.selected {
+  background-color: #ccc;
+}

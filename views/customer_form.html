@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <title>Add Customer</title>
+</head>
+<body>
+  <form action="/add-customer" method="POST">
+
+    <div class="main-customer">
+
+  <div class="customer-name">
+    <div class="customer-name-label">
+      <label for="customer-name">Name</label> 
+    </div>
+
+    <div class="customer-name-input">
+      <input type="text" id="customer-name" name="customer-name" /> 
+    </div>
+  </div>
+
+  <div class="site-container">
+    <div class="customer-site">
+
+      <div class="customer-site-name">
+        <label for="cutomer-name">Site</label>
+      </div>
+
+      <div class="site-name">
+        <input type="text" name="site-name" id="site-name">
+      </div>
+
+    </div>
+    
+    <div class="customer-number">
+      <div class="customer-number">
+        <label for="customer-number">Numero</label>
+      </div>
+
+      <div class="customer-number">
+        <input type="number" name="customer-number" id="customer-number">
+      </div>
+
+    <div class="data">
+      <div class="data-label"><label for="data">Volume</label></div>
+      <div class="data-input"><input type="number" name="data" id="data"></div>
+    </div>
+
+
+    <div class="add-button">
+      <button type="button">+</button> 
+    </div>
+
+    <div class="date-re">
+      <div class="date-re-label"><label for="date-re">Date de Recharge</label></div>
+      <div class="date-input"><input type="date" name="date-re" id="date-re"></div>
+    </div>
+
+    <div class="auto-re">
+      <div class="auto-re-label"><label for="auto-re">Recharge Automatique</label></div>
+      <div class="auto-re-input"><input type="checkbox" name="auto-re" id="auto-re" value="1"></div>
+    </div>
+  </div>
+  <div class="submit-button">
+
+    </div>
+    <input type="submit" />
+  </div>
+  </form>
+</body>
+</html>
